@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "39FC5106-A8FF-44A4-9A82-4A8E81DCCCA2",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:UserBehaviorDrivenUITestsExample.xcodeproj",
+        "identifier" : "E343D53B2B989D7500AE9AD4",
+        "name" : "UserBehaviorDrivenExampleUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
