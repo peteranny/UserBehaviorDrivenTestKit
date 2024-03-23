@@ -67,7 +67,12 @@ extension ExampleElement: UBDElement {
         let app = XCUIApplication()
         switch ele {
         case .this:
-            return .from(app.staticTexts["Enter You Information"])
+            return .from(app.staticTexts["Enter You Information"],
+                         swipeDown: {
+                let top = $0.coordinate(withNormalizedOffset: .zero)
+                let bottom = app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 1))
+                top.press(forDuration: 1, thenDragTo: bottom)
+            })
         case .accountField:
             return .from(app.textFields["account"])
         case .passwordField:

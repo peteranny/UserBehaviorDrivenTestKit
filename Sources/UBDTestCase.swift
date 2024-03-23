@@ -39,6 +39,18 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
 
         case let .doubleTap(on: ele):
             ele.resolve().doubleTap()
+
+        case let .swipe(direction, on: ele):
+            switch direction {
+            case .up:
+                ele.resolve().swipeUp()
+            case .down:
+                ele.resolve().swipeDown()
+            case .left:
+                ele.resolve().swipeLeft()
+            case .right:
+                ele.resolve().swipeRight()
+            }
         }
     }
 }

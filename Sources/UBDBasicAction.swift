@@ -18,4 +18,8 @@ public enum UBDBasicAction<Element> {
     case tap(on: Element)
     case tapToEnter(String, on: Element)
     case doubleTap(on: Element)
+    case swipe(Direction, on: Element)
+    public enum Direction {
+        case up, down, left, right
+    }
 }

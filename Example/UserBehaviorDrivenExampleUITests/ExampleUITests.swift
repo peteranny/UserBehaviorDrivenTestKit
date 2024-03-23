@@ -62,5 +62,7 @@ final class ExampleUITests: ExampleTestCase {
         then(.tap(on: .landingScreen(.loginButton)))
         then(.wait(for: .loginScreen(.this), to: .appear))
         then(.loginScreen(.verifyDoubleTap))
+        then(.swipe(.down, on: .loginScreen(.this))) // swipe to dismiss
+        then(.wait(for: .loginScreen(.this), to: .disappear))
     }
 }
