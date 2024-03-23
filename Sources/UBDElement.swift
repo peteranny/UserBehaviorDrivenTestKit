@@ -18,6 +18,7 @@ public struct UBDResolvedElement {
     let appears: () -> Bool
     let value: () -> String
     let tap: () -> Void
+    let doubleTap: () -> Void
     let enter: (String) -> Void
 }
 
@@ -27,6 +28,7 @@ extension UBDResolvedElement {
         appears: @escaping (XCUIElement) -> Bool = Self.defaultAppears,
         value: @escaping (XCUIElement) -> String = Self.defaultValue,
         tap: @escaping (XCUIElement) -> Void = Self.defaultTap,
+        doubleTap: @escaping (XCUIElement) -> Void = Self.defaultDoubleTap,
         enter: @escaping (XCUIElement, String) -> Void = Self.defaultEnter
     ) -> UBDResolvedElement {
         // Use the provided method/accessor or fall back to default
@@ -35,6 +37,7 @@ extension UBDResolvedElement {
             appears: { appears(ele) },
             value: { value(ele) },
             tap: { tap(ele) },
+            doubleTap: { doubleTap(ele) },
             enter: { enter(ele, $0) }
         )
     }
@@ -45,5 +48,6 @@ extension UBDResolvedElement {
     public static var defaultAppears: (XCUIElement) -> Bool = { $0.waitForExistence(timeout: 1) }
     public static var defaultValue: (XCUIElement) -> String = { $0.label }
     public static var defaultTap: (XCUIElement) -> Void = { $0.tap() }
+    public static var defaultDoubleTap: (XCUIElement) -> Void = { $0.doubleTap() }
     public static var defaultEnter: (XCUIElement, String) -> Void = { $0.typeText($1) }
 }

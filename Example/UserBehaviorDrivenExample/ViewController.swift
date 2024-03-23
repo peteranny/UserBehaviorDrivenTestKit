@@ -43,6 +43,11 @@ class FormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpForm()
+        setUpDoubleTap()
+    }
+
+    private func setUpForm() {
         view.backgroundColor = .lightGray
         title = "Enter You Information"
 
@@ -80,6 +85,19 @@ class FormViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", primaryAction: UIAction { [unowned self] _ in
             dismiss(animated: true)
         })
+    }
+
+    private func setUpDoubleTap() {
+        let doubleGesture = UITapGestureRecognizer(target: self, action: #selector(didDoubleTap))
+        doubleGesture.numberOfTapsRequired = 2
+        navigationController?.navigationBar.addGestureRecognizer(doubleGesture)
+    }
+
+    @objc
+    func didDoubleTap() {
+        let alert = UIAlertController(title: "Double Tapped", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in alert.dismiss(animated: true) })
+        present(alert, animated: true)
     }
 }
 

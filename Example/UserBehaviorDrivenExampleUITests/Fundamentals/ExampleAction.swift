@@ -17,6 +17,7 @@ enum ExampleAction {
     case loginScreen(LoginScreenAction)
     enum LoginScreenAction {
         case login(account: String, password: String)
+        case verifyDoubleTap
     }
 }
 
@@ -36,6 +37,11 @@ extension UBDTestCase where Element == ExampleElement {
             then(.tapToEnter(account, on: .loginScreen(.accountField)))
             then(.tapToEnter(password, on: .loginScreen(.passwordField)))
             then(.tap(on: .loginScreen(.submitButton)))
+
+        case .loginScreen(.verifyDoubleTap):
+            then(.doubleTap(on: .loginScreen(.this)))
+            then(.wait(for: .loginScreen(.alert(.doubleTapped)), to: .appear))
+            then(.tap(on: .loginScreen(.alert(.okButton))))
         }
     }
 }

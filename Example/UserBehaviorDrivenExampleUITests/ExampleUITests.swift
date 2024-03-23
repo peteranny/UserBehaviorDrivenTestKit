@@ -54,4 +54,13 @@ final class ExampleUITests: ExampleTestCase {
         then(.landingScreen(.login(account: "P.S@g.com", password: "000000"))) // <-- one action for a complete intention in the screen
         then(.wait(for: .landingScreen(.welcomeAccount), to: .haveValue("P.S@g.com")))
     }
+
+    /// User-behavior driven UITest with more actions
+    func testExampleUserBehaviorDrivenWithMoreActions() throws {
+        then(.launch)
+        then(.wait(for: .landingScreen(.this), to: .appear))
+        then(.tap(on: .landingScreen(.loginButton)))
+        then(.wait(for: .loginScreen(.this), to: .appear))
+        then(.loginScreen(.verifyDoubleTap))
+    }
 }

@@ -36,6 +36,9 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
         case let .tapToEnter(text, ele):
             ele.resolve().tap()
             ele.resolve().enter(text)
+
+        case let .doubleTap(on: ele):
+            ele.resolve().doubleTap()
         }
     }
 }

@@ -17,4 +17,5 @@ public enum UBDBasicAction<Element> {
 
     case tap(on: Element)
     case tapToEnter(String, on: Element)
+    case doubleTap(on: Element)
 }
