@@ -51,6 +51,9 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
             case .right:
                 ele.resolve().swipeRight()
             }
+
+        case let .scroll(direction, on: ele):
+            then(.swipe(direction.reverse, on: ele))
         }
     }
 }

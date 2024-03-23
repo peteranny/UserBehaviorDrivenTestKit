@@ -19,7 +19,23 @@ public enum UBDBasicAction<Element> {
     case tapToEnter(String, on: Element)
     case doubleTap(on: Element)
     case swipe(Direction, on: Element)
+    case scroll(Direction, on: Element)
     public enum Direction {
         case up, down, left, right
+    }
+}
+
+extension UBDBasicAction.Direction {
+    var reverse: Self {
+        switch self {
+        case .up:
+            return .down
+        case .down:
+            return .up
+        case .left:
+            return .right
+        case .right:
+            return .left
+        }
     }
 }
