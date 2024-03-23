@@ -24,10 +24,10 @@ public struct UBDResolvedElement {
 extension UBDResolvedElement {
     public static func from(
         _ ele: XCUIElement,
-        appears: @escaping (XCUIElement) -> Bool = { $0.waitForExistence(timeout: 1) },
-        value: @escaping (XCUIElement) -> String = { $0.label },
-        tap: @escaping (XCUIElement) -> Void = { $0.tap() },
-        enter: @escaping (XCUIElement, String) -> Void = { $0.typeText($1) }
+        appears: @escaping (XCUIElement) -> Bool = Self.defaultAppears,
+        value: @escaping (XCUIElement) -> String = Self.defaultValue,
+        tap: @escaping (XCUIElement) -> Void = Self.defaultTap,
+        enter: @escaping (XCUIElement, String) -> Void = Self.defaultEnter
     ) -> UBDResolvedElement {
         // Use the provided method/accessor or fall back to default
         return UBDResolvedElement(
@@ -38,4 +38,12 @@ extension UBDResolvedElement {
             enter: { enter(ele, $0) }
         )
     }
+}
+
+extension UBDResolvedElement {
+    /// The default transformers. Update if you want a different implementation for the default.
+    public static var defaultAppears: (XCUIElement) -> Bool = { $0.waitForExistence(timeout: 1) }
+    public static var defaultValue: (XCUIElement) -> String = { $0.label }
+    public static var defaultTap: (XCUIElement) -> Void = { $0.tap() }
+    public static var defaultEnter: (XCUIElement, String) -> Void = { $0.typeText($1) }
 }
