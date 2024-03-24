@@ -21,20 +21,8 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
         case .launch:
             app.launch()
 
-        case let .wait(for: ele, to: .appear):
-            XCTAssertTrue(ele.resolve().appears())
-
-        case let .wait(for: ele, to: .disappear):
-            XCTAssertFalse(ele.resolve().appears())
-
-        case let .wait(for: ele, to: .beSelected):
-            XCTAssertTrue(ele.resolve().selected())
-
-        case let .wait(for: ele, to: .beDeselected):
-            XCTAssertFalse(ele.resolve().selected())
-
-        case let .wait(for: ele, to: .haveValue(value)):
-            XCTAssertEqual(ele.resolve().value(), value)
+        case let .wait(for: ele, to: state):
+            XCTAssertTrue(satisfies(ele.satisfies(state), forRetries: 3))
 
         case let .tap(ele):
             ele.resolve().tap()
@@ -65,5 +53,30 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
         case let .scroll(direction, on: ele):
             then(.swipe(direction.reverse, on: ele))
         }
+    }
+}
+
+private extension UBDElement {
+    func satisfies(_ state: UBDBasicAction<Self>.State) -> Bool {
+        switch state {
+        case .appear:
+            return resolve().appears()
+        case .disappear:
+            return !resolve().appears()
+        case .beSelected:
+            return resolve().selected()
+        case .beDeselected:
+            return !resolve().selected()
+        case .haveValue(let expectedValue):
+            return resolve().value() == expectedValue
+        }
+    }
+}
+
+private func satisfies(_ condition: @autoclosure () -> Bool, forRetries nRetries: Int) -> Bool {
+    (1...nRetries).map { $0 == nRetries }.contains { isLast in
+        if condition() { return true }
+        if !isLast { usleep(useconds_t(500_000)) }
+        return false
     }
 }
