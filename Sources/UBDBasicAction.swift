@@ -10,6 +10,12 @@ public enum UBDBasicAction<Element> {
 
     case wait(for: Element, to: State)
     public enum State {
+        /// This is a strictly negated state when we expect an element to be *never* so.
+        /// For example, the onboarding tutorial *never appears* when I re-visit the same page.
+        /// Compared to *disappear*, which allows it to appear.
+        indirect
+        case never(State)
+
         case appear
         case disappear
         case beSelected

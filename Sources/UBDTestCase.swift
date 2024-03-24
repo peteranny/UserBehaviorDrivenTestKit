@@ -59,6 +59,8 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
 private extension UBDElement {
     func satisfies(_ state: UBDBasicAction<Self>.State) -> Bool {
         switch state {
+        case .never(let state):
+            return UBDTestKit.satisfies(satisfies(state), forRetries: 3) == false
         case .appear:
             return resolve().appears()
         case .disappear:
