@@ -14,7 +14,7 @@ public enum UBDBasicAction<Element> {
         case disappear
         case beSelected
         case beDeselected
-        case haveValue(String)
+        case haveValue(Any?)
     }
 
     case tap(on: Element)
