@@ -12,11 +12,18 @@ public enum UBDBasicAction<Element> {
     public enum State {
         case appear
         case disappear
+        case beSelected
+        case beDeselected
         case haveValue(String)
     }
 
     case tap(on: Element)
     case tapToEnter(String, on: Element)
+    case tapToSwitch(SwitchState, on: Element)
+    public enum SwitchState {
+        case on, off
+    }
+
     case doubleTap(on: Element)
     case swipe(Direction, on: Element)
     case scroll(Direction, on: Element)

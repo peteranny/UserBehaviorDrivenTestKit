@@ -27,6 +27,12 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
         case let .wait(for: ele, to: .disappear):
             XCTAssertFalse(ele.resolve().appears())
 
+        case let .wait(for: ele, to: .beSelected):
+            XCTAssertTrue(ele.resolve().selected())
+
+        case let .wait(for: ele, to: .beDeselected):
+            XCTAssertFalse(ele.resolve().selected())
+
         case let .wait(for: ele, to: .haveValue(value)):
             XCTAssertEqual(ele.resolve().value(), value)
 
@@ -34,8 +40,12 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
             ele.resolve().tap()
 
         case let .tapToEnter(text, ele):
-            ele.resolve().tap()
+            then(.tap(on: ele))
             ele.resolve().enter(text)
+
+        case let .tapToSwitch(state, on: ele):
+            then(.tap(on: ele))
+            then(.wait(for: ele, to: state == .on ? .beSelected : .beDeselected))
 
         case let .doubleTap(on: ele):
             ele.resolve().doubleTap()

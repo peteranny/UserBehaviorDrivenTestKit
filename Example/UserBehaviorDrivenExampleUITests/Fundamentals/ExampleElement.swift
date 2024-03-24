@@ -23,6 +23,7 @@ enum ExampleElement {
         case accountField
         case passwordField
         case submitButton
+        case rememberMeSwitch
 
         case alert(AlertElement)
         enum AlertElement {
@@ -79,6 +80,8 @@ extension ExampleElement: UBDElement {
             return .from(app.secureTextFields["password"])
         case .submitButton:
             return .from(app.buttons["Submit"])
+        case .rememberMeSwitch:
+            return .from(app.switches["remember.switch"])
         case .alert(.incorrect):
             return .from(app.alerts["Incorrect"])
         case .alert(.doubleTapped):

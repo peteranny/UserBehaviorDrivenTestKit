@@ -51,7 +51,20 @@ class FormViewController: UIViewController {
         view.backgroundColor = .lightGray
         title = "Enter You Information"
 
+        let defaults = UserDefaults.standard
+        let presetKey = "account.preset"
+
+        let rememberMeSwitch = UISwitch()
+        rememberMeSwitch.isOn = defaults.string(forKey: presetKey).map { $0.isEmpty == false } ?? false
+        rememberMeSwitch.accessibilityIdentifier = "remember.switch"
+        let rememberMeLabel = UILabel()
+        rememberMeLabel.text = "Remember me"
+        let rememberMeStackView = UIStackView(arrangedSubviews: [rememberMeSwitch, rememberMeLabel])
+        rememberMeStackView.alignment = .center
+        rememberMeStackView.spacing = 8
+
         let accountField = UITextField()
+        accountField.text = defaults.string(forKey: presetKey)
         accountField.placeholder = "Account"
         accountField.borderStyle = .roundedRect
         accountField.accessibilityIdentifier = "account"
@@ -63,6 +76,15 @@ class FormViewController: UIViewController {
         passwordField.accessibilityIdentifier = "password"
 
         let button = UIButton(primaryAction: UIAction(title: "Submit") { [unowned self] _ in
+            defer {
+                if rememberMeSwitch.isOn {
+                    defaults.setValue(accountField.text!, forKey: presetKey)
+                } else {
+                    defaults.removeObject(forKey: presetKey)
+                }
+                defaults.synchronize()
+            }
+
             if accountField.text == "P.S@g.com" && passwordField.text == "000000" {
                 dismiss(animated: true)
                 onLoginSuccess?(accountField.text!)
@@ -78,9 +100,14 @@ class FormViewController: UIViewController {
         stackView.spacing = 8
         stackView.alignment = .center
         stackView.distribution = .fillEqually
-        stackView.frame = UIScreen.main.bounds
 
-        view.addSubview(stackView)
+        let vStackView = UIStackView(arrangedSubviews: [stackView, rememberMeStackView])
+        vStackView.axis = .vertical
+        vStackView.alignment = .fill
+        vStackView.distribution = .fillEqually
+        vStackView.frame = UIScreen.main.bounds
+
+        view.addSubview(vStackView)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", primaryAction: UIAction { [unowned self] _ in
             dismiss(animated: true)
