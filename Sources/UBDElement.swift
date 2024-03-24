@@ -17,6 +17,7 @@ public struct UBDResolvedElement {
     let ele: XCUIElement
     let appears: () -> Bool
     let selected: () -> Bool
+    let enabled: () -> Bool
     let value: () -> Any?
     let tap: () -> Void
     let doubleTap: () -> Void
@@ -32,6 +33,7 @@ extension UBDResolvedElement {
         _ ele: XCUIElement,
         appears: @escaping (XCUIElement) -> Bool = Self.defaultAppears,
         selected: @escaping (XCUIElement) -> Bool = Self.defaultSelected,
+        enabled: @escaping (XCUIElement) -> Bool = Self.defaultEnabled,
         value: @escaping (XCUIElement) -> Any? = Self.defaultValue,
         tap: @escaping (XCUIElement) -> Void = Self.defaultTap,
         doubleTap: @escaping (XCUIElement) -> Void = Self.defaultDoubleTap,
@@ -46,6 +48,7 @@ extension UBDResolvedElement {
             ele: ele,
             appears: { appears(ele) },
             selected: { selected(ele) },
+            enabled: { enabled(ele) },
             value: { value(ele) },
             tap: { tap(ele) },
             doubleTap: { doubleTap(ele) },
@@ -62,6 +65,7 @@ extension UBDResolvedElement {
     /// The default transformers. Update if you want a different implementation for the default.
     public static var defaultAppears: (XCUIElement) -> Bool = { $0.waitForExistence(timeout: 1) }
     public static var defaultSelected: (XCUIElement) -> Bool = { $0.elementType == .switch ? $0.value as? String == "1" : $0.isSelected }
+    public static var defaultEnabled: (XCUIElement) -> Bool = { $0.isEnabled }
     public static var defaultValue: (XCUIElement) -> Any? = { [.staticText, .button].contains($0.elementType) ? $0.label : $0.value }
     public static var defaultTap: (XCUIElement) -> Void = { $0.tap() }
     public static var defaultDoubleTap: (XCUIElement) -> Void = { $0.doubleTap() }

@@ -67,6 +67,10 @@ private extension UBDElement {
             return resolve().selected()
         case .beDeselected:
             return !resolve().selected()
+        case .beEnabled:
+            return resolve().enabled()
+        case .beDisabled:
+            return !resolve().enabled()
         case .haveValue(let expectedValue):
             return "\(resolve().value())" == "\(expectedValue)"
         }

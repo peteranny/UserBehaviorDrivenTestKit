@@ -14,6 +14,8 @@ public enum UBDBasicAction<Element> {
         case disappear
         case beSelected
         case beDeselected
+        case beEnabled
+        case beDisabled
         case haveValue(Any?)
     }
 

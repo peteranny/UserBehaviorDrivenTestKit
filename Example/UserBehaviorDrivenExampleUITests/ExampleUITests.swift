@@ -59,6 +59,7 @@ final class ExampleUITests: ExampleTestCase {
     func testExampleUserBehaviorDrivenWithMoreActions() throws {
         then(.launch)
         then(.wait(for: .landingScreen(.this), to: .appear))
+        then(.wait(for: .landingScreen(.loginButton), to: .beEnabled))
         then(.tap(on: .landingScreen(.loginButton)))
         then(.wait(for: .loginScreen(.this), to: .appear))
         then(.tapToSwitch(.on, on: .loginScreen(.rememberMeSwitch)))
