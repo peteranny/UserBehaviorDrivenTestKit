@@ -29,6 +29,7 @@ enum ExampleElement {
         enum AlertElement {
             case incorrect
             case doubleTapped
+            case longPressed
             case okButton
         }
     }
@@ -86,6 +87,8 @@ extension ExampleElement: UBDElement {
             return .from(app.alerts["Incorrect"])
         case .alert(.doubleTapped):
             return .from(app.alerts["Double Tapped"])
+        case .alert(.longPressed):
+            return .from(app.alerts["Long Pressed"])
         case .alert(.okButton):
             return .from(app.alerts.buttons["OK"])
         }

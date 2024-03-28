@@ -21,6 +21,7 @@ public struct UBDResolvedElement {
     let value: () -> Any?
     let tap: () -> Void
     let doubleTap: () -> Void
+    let longPress: () -> Void
     let enter: (String) -> Void
     let swipeUp: () -> Void
     let swipeDown: () -> Void
@@ -37,6 +38,7 @@ extension UBDResolvedElement {
         value: @escaping (XCUIElement) -> Any? = Self.defaultValue,
         tap: @escaping (XCUIElement) -> Void = Self.defaultTap,
         doubleTap: @escaping (XCUIElement) -> Void = Self.defaultDoubleTap,
+        longPress: @escaping (XCUIElement) -> Void = Self.defaultLongPress,
         enter: @escaping (XCUIElement, String) -> Void = Self.defaultEnter,
         swipeUp: @escaping (XCUIElement) -> Void = Self.defaultSwipeUp,
         swipeDown: @escaping (XCUIElement) -> Void = Self.defaultSwipeDown,
@@ -52,6 +54,7 @@ extension UBDResolvedElement {
             value: { value(ele) },
             tap: { tap(ele) },
             doubleTap: { doubleTap(ele) },
+            longPress: { longPress(ele) },
             enter: { enter(ele, $0) },
             swipeUp: { swipeUp(ele) },
             swipeDown: { swipeDown(ele) },
@@ -69,6 +72,7 @@ extension UBDResolvedElement {
     public static var defaultValue: (XCUIElement) -> Any? = { [.staticText, .button].contains($0.elementType) ? $0.label : $0.value }
     public static var defaultTap: (XCUIElement) -> Void = { $0.tap() }
     public static var defaultDoubleTap: (XCUIElement) -> Void = { $0.doubleTap() }
+    public static var defaultLongPress: (XCUIElement) -> Void = { $0.press(forDuration: 2) }
     public static var defaultEnter: (XCUIElement, String) -> Void = { $0.typeText($1) }
     public static var defaultSwipeUp: (XCUIElement) -> Void = { $0.swipeUp() }
     public static var defaultSwipeDown: (XCUIElement) -> Void = { $0.swipeDown() }

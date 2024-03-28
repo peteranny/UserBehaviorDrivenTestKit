@@ -45,6 +45,7 @@ class FormViewController: UIViewController {
 
         setUpForm()
         setUpDoubleTap()
+        setUpLongPress()
     }
 
     private func setUpForm() {
@@ -123,6 +124,19 @@ class FormViewController: UIViewController {
     @objc
     func didDoubleTap() {
         let alert = UIAlertController(title: "Double Tapped", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in alert.dismiss(animated: true) })
+        present(alert, animated: true)
+    }
+
+    private func setUpLongPress() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress))
+        longPressGesture.minimumPressDuration = 2
+        navigationController?.navigationBar.addGestureRecognizer(longPressGesture)
+    }
+
+    @objc
+    func didLongPress() {
+        let alert = UIAlertController(title: "Long Pressed", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in alert.dismiss(animated: true) })
         present(alert, animated: true)
     }

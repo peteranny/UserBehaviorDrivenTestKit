@@ -33,6 +33,7 @@ public enum UBDBasicAction<Element> {
     }
 
     case doubleTap(on: Element)
+    case longPress(on: Element)
     case swipe(Direction, on: Element)
     case scroll(Direction, on: Element)
     public enum Direction {
