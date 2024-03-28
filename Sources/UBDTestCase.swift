@@ -21,6 +21,10 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
         case .launch:
             app.launch()
 
+        case .relaunch:
+            app.terminate()
+            then(.launch)
+
         case let .wait(for: ele, to: state):
             XCTAssertTrue(satisfies(ele.satisfies(state), forRetries: 3))
 

@@ -7,6 +7,7 @@
 
 public enum UBDBasicAction<Element> {
     case launch
+    case relaunch
 
     case wait(for: Element, to: State)
     public enum State {
