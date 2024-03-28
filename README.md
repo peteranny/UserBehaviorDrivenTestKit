@@ -45,9 +45,10 @@ enum ExampleElement {
 }
 ```
 
-Secondly, interpret the elements under the hood:
+Secondly, conform to `UBDElement` to interpret the elements under the hood:
 
 ```swift
+import UBDTestKit
 import XCTest
 
 extension ExampleElement: UBDElement {
@@ -77,6 +78,8 @@ extension ExampleElement: UBDElement {
 Finally, subclass `UBDTestCase` to start writing your test in a user-behavior driven flow:
 
 ```swift
+import UBDTestKit
+
 final class ExampleUITests: UBDTestCase<ExampleElement> {
     func testExampleUserBehaviorDriven() throws {
         then(.launch)

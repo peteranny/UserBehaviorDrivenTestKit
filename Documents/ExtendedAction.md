@@ -5,6 +5,8 @@ Some consecutive basic actions in a particular screen could be common. To make c
 For instance, in the login screen, user always has to tap the text fields to enter the account and the password, followed by hitting the submit button in order to proceed. We can make an extended login action for an easier call:
 
 ```swift
+import UBDTestKit
+
 // MARK: - Extended actions
 enum ExampleAction {
   case landingScreen(LandingScreenAction)
@@ -39,6 +41,7 @@ extension UBDTestCase where Element == ExampleElement {
 ```
 And then apply the extended action to the test:
 ```swift
+import UBDTestKit
 import XCTest
 
 final class ExampleBehaviorDrivenUITests: UBDTestCase<ExampleElement> {
