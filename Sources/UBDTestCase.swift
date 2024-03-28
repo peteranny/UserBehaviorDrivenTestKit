@@ -29,23 +29,29 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
             XCTAssertTrue(satisfies(ele.satisfies(state), forRetries: 3))
 
         case let .tap(ele):
+            then(.wait(for: ele, to: .appear))
             ele.resolve().tap()
 
         case let .tapToEnter(text, ele):
+            then(.wait(for: ele, to: .appear))
             then(.tap(on: ele))
             ele.resolve().enter(text)
 
         case let .tapToSwitch(state, on: ele):
+            then(.wait(for: ele, to: .appear))
             then(.tap(on: ele))
             then(.wait(for: ele, to: state == .on ? .beSelected : .beDeselected))
 
         case let .doubleTap(on: ele):
+            then(.wait(for: ele, to: .appear))
             ele.resolve().doubleTap()
 
         case let .longPress(on: ele):
+            then(.wait(for: ele, to: .appear))
             ele.resolve().longPress()
 
         case let .swipe(direction, on: ele):
+            then(.wait(for: ele, to: .appear))
             switch direction {
             case .up:
                 ele.resolve().swipeUp()
@@ -58,6 +64,7 @@ open class UBDTestCase<Element: UBDElement>: XCTestCase {
             }
 
         case let .scroll(direction, on: ele):
+            then(.wait(for: ele, to: .appear))
             then(.swipe(direction.reverse, on: ele))
         }
     }
